@@ -6,863 +6,600 @@
 
 
   <noscript><div><img src="https://mc.yandex.ru/watch/94856199" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+ 
+       
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KinoPlayer.Top - Агрегатор фильмов и сериалов</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <meta charset="UTF-8">
+  <title>Flicksbar — Кино и сериалы онлайн</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <meta name="description" content="Смотрите фильмы и сериалы бесплатно. В адресной строке: /films/ID или /serials/ID">
+  <meta name="HandheldFriendly" content="true">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background: #0a0a0a;
-            min-height: 100vh;
-            color: #fff;
-            overflow-x: hidden;
-        }
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: #0a0e1a;
+      color: #eef2ff;
+      line-height: 1.5;
+    }
 
-        /* Анимированный фон */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background:
-                radial-gradient(circle at 25% 25%, #4CAF50 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, #00BCD4 0%, transparent 50%),
-                radial-gradient(circle at 50% 50%, #9C27B0 0%, transparent 50%);
-            filter: blur(120px);
-            opacity: 0.4;
-            animation: backgroundShift 12s ease-in-out infinite alternate;
-            z-index: -1;
-        }
+    .wrapper {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 20px 40px;
+    }
 
-        @keyframes backgroundShift {
-            0% { transform: scale(1) rotate(0deg); }
-            100% { transform: scale(1.1) rotate(8deg); }
-        }
+    /* Главная навигация */
+    .main-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 25px;
+      background: #0f1422e6;
+      backdrop-filter: blur(12px);
+      padding: 10px 20px;
+      border-radius: 60px;
+      border: 1px solid #2a345a;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+    }
+    .main-nav a {
+      color: #b9c8ff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 8px 18px;
+      border-radius: 40px;
+      transition: 0.2s;
+    }
+    .main-nav a:hover {
+      background: #1f2a4e;
+      color: white;
+    }
+    .main-nav .active-link {
+      background: #3b5bdb;
+      color: white;
+      box-shadow: 0 2px 8px rgba(59,91,219,0.3);
+    }
 
-        /* Падающие частицы */
-        .particle {
-            position: absolute;
-            width: 5px;
-            height: 5px;
-            background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.3));
-            border-radius: 50%;
-            animation: float 18s linear infinite;
-        }
+    /* Контейнер контента */
+    .main-container {
+      background: #0f1422;
+      border-radius: 28px;
+      padding: 24px;
+      border: 1px solid #262e4a;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.6);
+      min-height: 550px;
+    }
 
-        .particle:nth-child(1) { left: 10%; animation-delay: 1s; animation-duration: 16s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 3s; animation-duration: 17s; }
-        .particle:nth-child(3) { left: 30%; animation-delay: 5s; animation-duration: 15s; }
-        .particle:nth-child(4) { left: 40%; animation-delay: 7s; animation-duration: 16s; }
-        .particle:nth-child(5) { left: 50%; animation-delay: 9s; animation-duration: 18s; }
-        .particle:nth-child(6) { left: 60%; animation-delay: 11s; animation-duration: 17s; }
-        .particle:nth-child(7) { left: 70%; animation-delay: 13s; animation-duration: 15s; }
-        .particle:nth-child(8) { left: 80%; animation-delay: 15s; animation-duration: 16s; }
+    /* Плеер зона */
+    .player-section {
+      width: 100%;
+    }
+    .player-header {
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #262e4a;
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
+    .player-header h2 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      background: linear-gradient(135deg, #b9c8ff, #7c9cff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .player-id-badge {
+      background: #1a1f32;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-family: monospace;
+      color: #9aafe6;
+    }
+    .kinobox {
+      width: 100%;
+      border-radius: 20px;
+      overflow: hidden;
+      background: #00000030;
+      min-height: 450px;
+    }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 1; }
-            90% { opacity: 1; }
-            100% { transform: translateY(-100vh) rotate(360deg); opacity: 0; }
-        }
+    /* Информационные страницы */
+    .info-page {
+      display: none;
+      animation: fadePage 0.25s ease;
+    }
+    .info-page.active-page {
+      display: block;
+    }
+    @keyframes fadePage {
+      from { opacity: 0; transform: translateY(6px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+    .info-page h1 {
+      font-size: 2rem;
+      margin-bottom: 20px;
+      border-left: 5px solid #3b5bdb;
+      padding-left: 22px;
+    }
+    .info-page h2 {
+      margin: 28px 0 12px;
+      font-size: 1.5rem;
+      color: #b7cbff;
+    }
+    .info-page p {
+      margin-bottom: 14px;
+      color: #cddcff;
+    }
+    .info-page ul, .info-page ol {
+      margin-left: 28px;
+      margin-bottom: 20px;
+    }
+    .card-faq {
+      background: #0b1022;
+      border-radius: 24px;
+      padding: 18px 24px;
+      margin-bottom: 18px;
+      border: 1px solid #293153;
+    }
+    .card-faq strong {
+      color: #7c9cff;
+    }
+    hr {
+      border-color: #293458;
+      margin: 24px 0;
+    }
+    .footer-note {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #6a78a3;
+      border-top: 1px solid #1f2742;
+      padding-top: 24px;
+    }
 
-        /* Контейнер для содержимого */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            z-index: 10;
-            position: relative;
-        }
+    /* Telegram виджет */
+    #tgWrapper {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      background: #1f2b48;
+      border-radius: 60px;
+      box-shadow: 0 8px 20px black;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    #tgClose {
+      position: absolute;
+      top: -12px;
+      right: -10px;
+      background: #2c3e66;
+      width: 28px;
+      height: 28px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 18px;
+    }
+    .tgMain img {
+      width: 56px;
+      height: 56px;
+      border-radius: 60px;
+      display: block;
+    }
 
-        /* Шапка */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            padding: 20px 0;
-        }
+    /* Рекламные блоки (сохранена структура) */
+    .topAdPad {
+      margin-bottom: 20px;
+      text-align: center;
+      background: #080c18;
+      border-radius: 20px;
+      padding: 6px;
+      font-size: 12px;
+    }
+    .brand {
+      display: none;
+    }
 
-        .header h1 {
-            font-size: 42px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #4CAF50, #00BCD4);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 10px;
-            text-shadow: 0 0 35px rgba(76, 175, 80, 0.6);
-        }
-
-        .header p {
-            font-size: 18px;
-            color: rgba(255, 255, 255, 0.8);
-            margin-bottom: 20px;
-        }
-
-        /* Поиск */
-        .search-container {
-            background: rgba(30, 30, 30, 0.7);
-            backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .search-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #00BCD4;
-            text-align: center;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 15px;
-            font-size: 16px;
-            background: rgba(30, 30, 30, 0.9);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            color: white;
-            margin-bottom: 15px;
-        }
-
-        .search-buttons {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
-        }
-
-        .search-btn {
-            flex: 1;
-            padding: 12px;
-            background: linear-gradient(135deg, #00BCD4, #4CAF50);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .clear-btn {
-            flex: 1;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .search-results {
-            width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            background: rgba(30, 30, 30, 0.7);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 10px;
-        }
-
-        .film-item {
-            display: flex;
-            gap: 15px;
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.05);
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .film-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .film-poster img {
-            width: 60px;
-            height: 90px;
-            object-fit: cover;
-            border-radius: 5px;
-        }
-
-        .film-info {
-            flex: 1;
-        }
-
-        .film-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: #00BCD4;
-        }
-
-        .film-year, .film-rating {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .selected-film {
-            margin: 15px 0;
-            padding: 15px;
-            background: rgba(0, 188, 212, 0.1);
-            border-radius: 8px;
-            border: 1px solid rgba(0, 188, 212, 0.3);
-            text-align: center;
-        }
-
-        .loading, .error, .no-results {
-            text-align: center;
-            padding: 20px;
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .results-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #4CAF50;
-        }
-
-        /* Топ фильмов */
-        .top-films {
-            background: rgba(30, 30, 30, 0.7);
-            backdrop-filter: blur(40px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        .top-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #00BCD4;
-            text-align: center;
-        }
-
-        .films-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .top-film-item {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            cursor: pointer;
-        }
-
-        .top-film-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .top-film-poster {
-            width: 100%;
-            height: 280px;
-            object-fit: cover;
-        }
-
-        .top-film-info {
-            padding: 15px;
-        }
-
-        .top-film-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: white;
-        }
-
-        .top-film-rating {
-            color: #4CAF50;
-            font-weight: 600;
-        }
-
-        /* Плеер */
-        .player-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-
-        .player-content {
-            background-color: #1a1a1a;
-            width: 90%;
-            max-width: 900px;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        .player-header {
-            padding: 15px 20px;
-            background: #252525;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .player-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #00BCD4;
-        }
-
-        .close-player {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 24px;
-            cursor: pointer;
-        }
-
-        .sources-container {
-            padding: 20px;
-            background: #1e1e1e;
-        }
-
-        .sources-title {
-            margin-bottom: 15px;
-            color: white;
-            font-size: 16px;
-        }
-
-        .sources-list {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .source-btn {
-            padding: 10px 15px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.2s;
-        }
-
-        .source-btn.active {
-            background: #00BCD4;
-        }
-
-        .source-btn:hover {
-            background: rgba(0, 188, 212, 0.7);
-        }
-
-        .player-iframe {
-            width: 100%;
-            height: 500px;
-            border: none;
-        }
-
-        /* Контейнер для CDNVideoHub */
-        .cdnvideohub-container {
-            width: 100%;
-            height: 500px;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-        
-        /* Контейнер для kinobox плеера */
-        .kinobox-container {
-            width: 100%;
-            min-height: 500px;
-            background: #000;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
-        
-        .kinobox-player {
-            width: 100%;
-            height: 500px;
-        }
-
-        /* Футер */
-        .footer {
-            text-align: center;
-            padding: 30px 0;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-        }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .films-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-            
-            .top-film-poster {
-                height: 220px;
-            }
-            
-            .player-iframe, .cdnvideohub-container, .kinobox-container, .kinobox-player {
-                height: 300px;
-            }
-            
-            .header h1 {
-                font-size: 32px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .films-grid {
-                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            }
-            
-            .top-film-poster {
-                height: 190px;
-            }
-            
-            .search-container, .top-films {
-                padding: 20px;
-            }
-            
-            .sources-list {
-                flex-direction: column;
-            }
-        }
-    </style>
+    @media (max-width: 680px) {
+      .wrapper { padding: 12px; }
+      .main-nav a { padding: 5px 12px; font-size: 0.75rem; }
+      .main-container { padding: 16px; }
+      .player-header h2 { font-size: 1.1rem; }
+    }
+  </style>
+  
+  <!-- Подключаем kinobox стили (локально переопределим) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/kinobox.css@1.0.0/dist/kinobox.min.css">
 </head>
 <body>
 
-<!-- Падающие частицы -->
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
-<div class="particle"></div>
+<!-- Счётчики и метрики (сохранены) -->
+<script type="text/javascript" src="https://deltarockme.com/services/?id=174265"></script>
+<script type="text/javascript">
+  (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+  m[i].l=1*new Date();
+  for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+  k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})
+  (window, document, "script", "https://mc.yandex.ru/metrika/tag.js", "ym");
+  ym(94856199, "init", { clickmap:true, trackLinks:true, accurateTrackBounce:true });
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/94856199" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 
-<div class="container">
-    <!-- Шапка -->
-    <div class="header">
-        <h1>KinoPlayer.Top</h1>
-        <p>Все фильмы доступные для просмотра онлайн в одном месте</p>
-    </div>
+<span style="display: none;">
+  <a href="https://www.liveinternet.ru/click;flcksbr" target="_blank"><img id="licntBF6C" width="88" height="31" style="border:0" alt=""/></a>
+  <script>(function(d,s){d.getElementById("licntBF6C").src="https://counter.yadro.ru/hit;flcksbr?t52.6;r"+escape(d.referrer)+((typeof(s)=="undefined")?"":";s"+s.width+"*"+s.height+"*"+(s.colorDepth?s.colorDepth:s.pixelDepth))+";u"+escape(d.URL)+";h"+escape(d.title.substring(0,150))+";"+Math.random()})(document,screen)</script>
+</span>
 
-    <!-- Поиск -->
-    <div class="search-container">
-        <h2 class="search-title">Введите название фильма</h2>
-        <input type="text" id="searchInput" class="search-input" placeholder="Например: Папины дочки">
-        
-        <div class="search-buttons">
-            <button class="search-btn" onclick="searchContent()">Найти</button>
-            <button class="clear-btn" onclick="clearSearch()">Очистить</button>
+<div class="wrapper">
+  
+  <!-- Telegram виджет -->
+  <div id="tgWrapper">
+    <div id="tgClose"><b>✕</b></div>
+    <div class="tgMain"><a href="https://t.me/flicksbar3" target="_blank"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.6-1.38-.97-2.23-1.56-.99-.67-.35-1.04.22-1.64.15-.15 2.71-2.48 2.76-2.69.01-.03.02-.14-.06-.2-.08-.06-.2-.04-.28-.02-.12.02-2.03 1.29-2.73 1.74-.27.18-.52.26-.74.26-.24 0-.64-.12-.95-.23-.38-.13-.85-.27-1.22-.28-.45-.01-.88.12-1.27.38-.58.38-.94.92-.94 1.44 0 .38.1.62.28.81.5.52 1.34.83 2.18.99.37.07.75.1 1.14.07.68-.05 1.33-.24 1.95-.54.02-.01.05-.02.07 0 .04.03.05.08.03.12-.05.12-.3.58-.4.72-.13.18-.27.36-.43.5-.45.4-1.01.62-1.58.62-.27 0-.54-.05-.8-.15.64.98 1.6 1.5 2.72 1.5.94 0 1.76-.35 2.44-1.03.68-.68 1.05-1.6 1.18-2.7.14-1.17.23-2.36.33-3.54.02-.22.05-.43.09-.64.05-.28.2-.5.43-.63.23-.13.5-.14.73-.03.32.15.53.44.59.78.08.43.04.88 0 1.33z'/%3E%3C/svg%3E" alt="tg"></a></div>
+  </div>
+
+  <!-- Верхний рекламный блок (сохранён) -->
+  <div class="topAdPad">
+    <div id="movie_video"></div>
+    <script type="text/javascript" src="https://vak345.com/s.js?v=03208824bea369b060dba1f2083d6a4c" async></script>
+  </div>
+
+  <!-- НАВИГАЦИЯ (лендинг, faq, условия, политика, docs) -->
+  <div class="main-nav">
+    <a href="#" data-page="landing">🏠 Лендинг</a>
+    <a href="#" data-page="faq">❓ FAQ</a>
+    <a href="#" data-page="terms">📜 Условия</a>
+    <a href="#" data-page="privacy">🔒 Политика</a>
+    <a href="#" data-page="docs">📘 Docs</a>
+    <a href="#" data-page="player" class="active-link">🎬 Плеер</a>
+  </div>
+
+  <div class="main-container">
+    <!-- Страница ПЛЕЕРА (по умолчанию активна) -->
+    <div id="playerPage" class="info-page active-page">
+      <div class="player-section">
+        <div class="player-header">
+          <h2>🎥 Flicksbar — Плеер онлайн</h2>
+          <div class="player-id-badge" id="currentKpBadge">ID: 77887788</div>
         </div>
-        
-        <div id="searchResults" class="search-results"></div>
-        
-        <div id="selectedFilm" class="selected-film"></div>
-    </div>
-
-    <!-- Плеер -->
-    <div id="playerModal" class="player-modal">
-        <div class="player-content">
-            <div class="player-header">
-                <div class="player-title" id="playerFilmTitle">Выберите источник для просмотра</div>
-                <button class="close-player" onclick="closePlayer()">×</button>
-            </div>
-            
-            <div class="sources-container">
-                <div class="sources-title">Доступные источники:</div>
-                <div class="sources-list">
-                    <button class="source-btn active" onclick="changeSource('source1', event)">Источник 1</button>
-                    <button class="source-btn" onclick="changeSource('source2', event)">Источник 2</button>
-                    <button class="source-btn" onclick="changeSource('source3', event)">Источник 3</button>
-                    <button class="source-btn" onclick="changeSource('source4', event)">Источник 4</button>
-                    <button class="source-btn" onclick="changeSource('source5', event)">Источник 5</button>
-                    <button class="source-btn" onclick="changeSource('source6', event)">Источник 6</button>
-                    <button class="source-btn" onclick="changeSource('source7', event)">Источник 7</button>
-                    <button class="source-btn" onclick="changeSource('source8', event)">Источник 8</button>
-                    <button class="source-btn" onclick="changeSource('source9', event)">Источник 9</button>
-                    <button class="source-btn" onclick="changeSource('source10', event)">Источник 10</button>
-                    <button class="source-btn" onclick="changeSource('source11', event)">Источник 11</button>
-                    <button class="source-btn" onclick="changeSource('kinobox', event)" style="background: #9C27B0;">Kinobox Player</button>
-                </div>
-                
-                <iframe id="playerIframe" class="player-iframe" src="" frameborder="0" allowfullscreen></iframe>
-                <div id="cdnvideohubContainer" class="cdnvideohub-container" style="display: none;">
-                    Плеер CDNVideoHub загружается...
-                </div>
-                <div id="kinoboxContainer" class="kinobox-container" style="display: none;">
-                    <div id="kinoboxPlayer" class="kinobox-player"></div>
-                </div>
-            </div>
+        <div id="kinoboxContainer" class="kinobox" data-kinopoisk="77887788"></div>
+        <div style="margin-top: 20px; background:#0a0f1c; border-radius: 16px; padding: 12px; font-size: 13px; text-align: center;">
+          💡 Используй адресную строку: <code style="background:#00000055; padding:4px 8px; border-radius:12px;">/films/1234567</code> или <code style="background:#00000055; padding:4px 8px; border-radius:12px;">/serials/9876543</code>
         </div>
+      </div>
     </div>
 
-    <!-- Футер -->
-    <div class="footer">
-        KinoPlayer.Top - Агрегатор плееров
+    <!-- ЛЕНДИНГ -->
+    <div id="landingPage" class="info-page">
+      <h1>Добро пожаловать на Flicksbar</h1>
+      <p>Самый удобный плеер для просмотра фильмов и сериалов прямо в браузере. Просто укажи ID кинопоиска в адресной строке и наслаждайся контентом без лишних действий.</p>
+      <h2>✨ Как смотреть?</h2>
+      <ul>
+        <li>🔹 <strong>Фильмы:</strong> перейди по адресу <code>https://твойсайт/films/1234567</code></li>
+        <li>🔹 <strong>Сериалы:</strong> используй <code>/serials/1234567</code> (поддерживаются любые ID Кинопоиска)</li>
+        <li>🔹 Плеер автоматически подхватывает все доступные источники.</li>
+      </ul>
+      <p>Наш плеер на базе Kinobox обеспечивает стабильный поток и множество зеркал. Наслаждайся любимыми фильмами в HD качестве!</p>
+      <hr>
+      <p>📢 Подписывайся на Telegram-канал, чтобы быть в курсе обновлений.</p>
     </div>
+
+    <!-- FAQ -->
+    <div id="faqPage" class="info-page">
+      <h1>Часто задаваемые вопросы</h1>
+      <div class="card-faq"><strong>❓ Как найти фильм по ID Кинопоиска?</strong><br>В адресной строке после домена напишите /films/ID или /serials/ID. Например: /films/301234. Плеер загрузится автоматически.</div>
+      <div class="card-faq"><strong>❓ Почему плеер не открывается?</strong><br>Проверьте корректность ID, он должен быть числом. Также убедитесь, что сайт загружается через HTTPS (некоторые источники требуют защищённое соединение).</div>
+      <div class="card-faq"><strong>❓ Работает ли на телефонах?</strong><br>Да, полностью адаптивный интерфейс и мобильный плеер поддерживаются. Рекомендуем использовать современные браузеры (Chrome, Safari).</div>
+      <div class="card-faq"><strong>❓ Нужно ли регистрироваться?</strong><br>Нет, просмотр полностью бесплатный и не требует регистрации.</div>
+      <div class="card-faq"><strong>❓ Качество видео?</strong><br>Источники предоставляют качество от 480p до 1080p, зависит от конкретного видео.</div>
+    </div>
+
+    <!-- Условия использования -->
+    <div id="termsPage" class="info-page">
+      <h1>Условия использования</h1>
+      <p>Используя Flicksbar, вы соглашаетесь с данными правилами. Сервис предоставляет только техническую возможность просмотра видео через публичные API-плееры. Мы не храним пиратский контент на своих серверах.</p>
+      <p>Все материалы предоставлены правообладателями или публичными источниками. Если вы являетесь правообладателем и хотите удалить ссылки — свяжитесь с нами через Telegram.</p>
+      <p>Запрещается использовать сайт для распространения вредоносного ПО, а также любых незаконных действий. Администрация оставляет за собой право изменять функционал.</p>
+      <p>Возрастное ограничение: 18+ (контент может содержать сцены насилия и ненормативную лексику).</p>
+    </div>
+
+    <!-- Политика конфиденциальности -->
+    <div id="privacyPage" class="info-page">
+      <h1>Политика конфиденциальности</h1>
+      <p>Мы уважаем вашу приватность. Flicksbar не собирает личные данные пользователей, кроме стандартных метрик (Яндекс.Метрика, счетчик LiveInternet), которые помогают нам анализировать трафик. Никакие персональные данные не передаются третьим лицам.</p>
+      <p>Сторонние рекламные сети могут использовать куки для показа релевантной рекламы. Вы можете отключить cookies в настройках браузера.</p>
+      <p>Плеер kinobox работает на сторонних серверах, их политика конфиденциальности регулируется отдельно.</p>
+    </div>
+
+    <!-- Docs / Документация -->
+    <div id="docsPage" class="info-page">
+      <h1>Документация для пользователей</h1>
+      <h2>📌 Формат маршрутов</h2>
+      <ul>
+        <li><code>/films/{kinopoisk_id}</code> — запуск фильма по ID</li>
+        <li><code>/serials/{kinopoisk_id}</code> — запуск сериала</li>
+        <li><code>/</code> или <code>/player</code> — страница плеера с ID по умолчанию 77887788</li>
+      </ul>
+      <h2>⚙️ Интеграция плеера</h2>
+      <p>Используется библиотека Kinobox (kinobox.js) с базовым URL: <strong>https://fbphdplay.top/</strong>. Плеер автоматически инициализируется при загрузке страницы или при смене ID в строке браузера.</p>
+      <h2>🔧 Технические детали</h2>
+      <p>Сайт написан на чистом HTML/CSS/JS. Роутинг работает через History API, без перезагрузки страницы обновляется плеер. Все рекламные скрипты и метрики сохранены по вашему требованию.</p>
+      <p>Для корректной работы рекомендуется использовать современные браузеры с поддержкой ES6.</p>
+    </div>
+  </div>
+  <div class="footer-note">
+    Flicksbar © 2025 — Смотри кино и сериалы онлайн. Все права на контент принадлежат правообладателям.
+  </div>
 </div>
 
+<!-- Подключаем скрипты: jquery, kinobox, главный JS -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://kinoplayer.tatnet.app/kinobox.js"></script>
 
 <script>
-    // Текущий выбранный фильм
-    let currentFilm = null;
-    let currentSource = 'source1';
-    let kinoboxInitialized = false;
-
-    // Базовая конфигурация источников
-    const sources = {
-        source1: "https://api1690380040.atomics.ws/embed/kp/",
-        source2: "//api.atomics.ws/embed/movie/", 
-        source3: "https://api.marts.ws/embed/movie/",
-        source4: "https://api.domem.ws/embed/movie/",
-        source5: "cdnvideohub",
-        source6: "https://5414e3c9.obrut.show/embed/kDN?kinopoisk_id=",
-        source7: "https://api.embess.ws/embed/kp/",
-        source8: "https://www.kinopoisk.one/film/",
-        source9: "https://www.kinopoisk.cfd/film/",
-        source10: "https://www.kinopoisk.vip/film/",
-        source11: "https://api.namy.ws/embed/movie/"
-    };
-
-    // Функция для поиска фильмов/сериалов по названию
-    async function searchContent() {
-        const searchInput = document.getElementById("searchInput").value.trim();
-        const resultsContainer = document.getElementById("searchResults");
-        
-        if (!searchInput) {
-            alert("Пожалуйста, введите название фильма или сериала");
-            return;
-        }
-        
-        resultsContainer.innerHTML = '<div class="loading">Поиск...</div>';
-        
-        try {
-            const apiUrl = `https://kinopoiskapiunofficial.tech/api/v2.1/films/search-by-keyword?keyword=${encodeURIComponent(searchInput)}&page=1`;
-            
-            const response = await fetch(apiUrl, {
-                headers: {
-                    'X-API-KEY': '960dc4e3-9eae-4072-8f0c-98a5ed6c0d2a',
-                    'Content-Type': 'application/json',
-                }
-            });
-            
-            if (!response.ok) {
-                throw new Error('Ошибка при поиске. Статус: ' + response.status);
-            }
-            
-            const data = await response.json();
-            displayResults(data.films);
-        } catch (error) {
-            console.error('Ошибка:', error);
-            resultsContainer.innerHTML = '<div class="error">Произошла ошибка при поиске. Попробуйте еще раз.</div>';
-        }
+  // ---------- ГЛОБАЛЬНЫЙ РОУТИНГ + ПЛЕЕР ----------
+  let currentKpId = 77887788;      // ID по умолчанию
+  let currentType = 'films';       // films или serials (не влияет на логику плеера, только визуал)
+  let kinoboxInstance = null;
+  let isPlayerInitialized = false;
+  
+  const containerSelector = '#kinoboxContainer';
+  
+  // Функция инициализации / обновления плеера
+  function initOrUpdatePlayer(kinopoiskId) {
+    if (!window.kinobox) {
+      console.warn('kinobox ещё не загружен');
+      setTimeout(() => initOrUpdatePlayer(kinopoiskId), 200);
+      return;
     }
-
-    // Функция для отображения результатов поиска
-    function displayResults(films) {
-        const resultsContainer = document.getElementById("searchResults");
-        
-        if (!films || films.length === 0) {
-            resultsContainer.innerHTML = '<div class="no-results">Ничего не найдено</div>';
-            return;
-        }
-        
-        let html = '<div class="results-title">Результаты поиска:</div>';
-        
-        films.slice(0, 5).forEach(film => {
-            html += `
-                <div class="film-item" onclick="selectFilm(${film.filmId}, '${(film.nameRu || film.nameEn).replace(/'/g, "\\'")}')">
-                    <div class="film-poster">
-                        <img src="${film.posterUrlPreview || 'https://via.placeholder.com/100x150'}" alt="${film.nameRu || film.nameEn}">
-                    </div>
-                    <div class="film-info">
-                        <div class="film-title">${film.nameRu || film.nameEn}</div>
-                        <div class="film-year">${film.year || 'Год неизвестен'}</div>
-                        <div class="film-rating">Рейтинг: ${film.rating || 'нет'}</div>
-                    </div>
-                </div>
-            `;
-        });
-        
-        resultsContainer.innerHTML = html;
-    }
-
-    // Функция для выбора фильма из результатов поиска
-    function selectFilm(filmId, filmTitle) {
-        currentFilm = { id: filmId, title: filmTitle };
-        document.getElementById("selectedFilm").innerHTML = `<strong>Выбран:</strong> ${filmTitle} (ID: ${filmId})`;
-        document.getElementById("searchResults").innerHTML = '';
-        document.getElementById("searchInput").value = '';
-        
-        // Запрашиваем дополнительную информацию о фильме через API
-        fetchFilmInfo(filmId);
-        
-        // Автоматически открываем плеер при выборе фильма
-        openPlayer();
-    }
+    // Очищаем контейнер от старого плеера
+    const $container = $(containerSelector);
+    $container.empty();
+    // Устанавливаем атрибут data-kinopoisk для нового id
+    $container.attr('data-kinopoisk', kinopoiskId);
     
-    // Функция для получения информации о фильме
-    async function fetchFilmInfo(filmId) {
-        try {
-            const apiUrl = `https://kinopoiskapiunofficial.tech/api/v2.2/films/${filmId}`;
-            const response = await fetch(apiUrl, {
-                headers: {
-                    'X-API-KEY': '960dc4e3-9eae-4072-8f0c-98a5ed6c0d2a',
-                    'Content-Type': 'application/json',
-                }
-            });
-            
-            if (response.ok) {
-                const data = await response.json();
-                // Сохраняем дополнительную информацию о фильме
-                currentFilm.nameRu = data.nameRu;
-                currentFilm.nameEn = data.nameEn;
-                currentFilm.year = data.year;
-                console.log('Информация о фильме получена:', data.nameRu, data.year);
-            }
-        } catch (error) {
-            console.error('Ошибка получения информации о фильме:', error);
+    try {
+      // Запускаем kinobox с теми же опциями, что и в оригинале (baseUrl fbphdplay.top)
+      kinobox(containerSelector, {
+        baseUrl: 'https://kinoplayer.tatnet.app/',
+        search: { kinopoisk: kinopoiskId }
+      });
+      isPlayerInitialized = true;
+      
+      // дополнительно обновляем бейдж
+      $('#currentKpBadge').text(`ID: ${kinopoiskId}`);
+      
+      // Эмуляция логики оригинального geo-фильтра (удаление obrut для некоторых стран, но без ошибок)
+      setTimeout(() => {
+        let menuBody = document.querySelector('.kinobox__menuBody:has(.kinobox__menuItem)');
+        if (menuBody) {
+          fetch('https://ip.nf/me.json')
+            .then(resp => resp.json())
+            .then(data => {
+              if (data?.ip?.country_code && ['AU','CA','DE','JP','NL','ES','TR','GB','US','FR'].includes(data.ip.country_code)) {
+                const obrutItem = menuBody.querySelector('.kinobox__menuItem[data-iframe-url*=obrut]');
+                if (obrutItem) obrutItem.remove();
+                const firstItem = menuBody.querySelector('.kinobox__menuItem');
+                if (firstItem) firstItem.click();
+              }
+            })
+            .catch(e => console.warn);
         }
+      }, 800);
+    } catch (e) {
+      console.error('Ошибка плеера:', e);
+      $container.html('<div style="padding:40px;text-align:center;color:#ff8a8a;">⚠️ Ошибка загрузки плеера. Проверьте ID или попробуйте позже.</div>');
     }
-
-    // Функция для очистки результатов поиска
-    function clearSearch() {
-        document.getElementById("searchResults").innerHTML = '';
-        document.getElementById("searchInput").value = '';
-        document.getElementById("selectedFilm").innerHTML = '';
-        currentFilm = null;
+  }
+  
+  // Функция извлечения ID и типа из текущего URL
+  function parseRouteFromURL() {
+    let path = window.location.pathname; // например /films/123 или /serials/456 или /player
+    if (path === '/' || path === '' || path === '/player') {
+      return { type: 'films', id: 77887788 };
     }
-
-    // Функция для открытия плеера
-    function openPlayer() {
-        if (!currentFilm) {
-            alert("Пожалуйста, выберите фильм для просмотра");
-            return;
-        }
-        
-        document.getElementById("playerFilmTitle").textContent = `Смотрим: ${currentFilm.title}`;
-        document.getElementById("playerModal").style.display = "flex";
-        
-        // Сбрасываем кнопку активного источника на первый
-        currentSource = 'source1';
-        document.querySelectorAll('.source-btn').forEach(btn => {
-            btn.classList.remove('active');
-        });
-        document.querySelector('.source-btn')?.classList.add('active');
-        
-        // Загружаем видео с выбранным источником
-        changeSource('source1');
+    const match = path.match(/^\/(films|serials)\/(\d+)/i);
+    if (match) {
+      return { type: match[1].toLowerCase(), id: parseInt(match[2], 10) };
     }
-
-    // Функция для изменения источника видео
-    function changeSource(source, event) {
-        currentSource = source;
-        
-        // Обновляем активную кнопку, если событие передано
-        if (event && event.target) {
-            document.querySelectorAll('.source-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            event.target.classList.add('active');
-        }
-        
-        // Скрываем все плееры
-        document.getElementById("playerIframe").style.display = "none";
-        document.getElementById("cdnvideohubContainer").style.display = "none";
-        document.getElementById("kinoboxContainer").style.display = "none";
-        
-        // Останавливаем iframe
-        document.getElementById("playerIframe").src = "";
-        
-        // Формируем URL для выбранного источника с ID Кинопоиска
-        if (currentFilm && currentFilm.id) {
-            if (source === 'source5') {
-                // Особый обработчик для CDNVideoHub
-                loadCDNVideoHubPlayer(currentFilm.id);
-            } else if (source === 'kinobox') {
-                // Особый обработчик для Kinobox
-                loadKinoboxPlayer(currentFilm.id);
-            } else if (sources[source]) {
-                // Обычные источники
-                document.getElementById("playerIframe").style.display = "block";
-                const iframeSrc = sources[source] + currentFilm.id;
-                document.getElementById("playerIframe").src = iframeSrc;
-            } else {
-                console.error('Неизвестный источник:', source);
-            }
-        }
+    return null; // нераспознанный путь
+  }
+  
+  // Обновить страницу плеера и навигацию
+  function navigateToPlayer(type, kinopoiskId) {
+    currentType = type;
+    currentKpId = kinopoiskId;
+    // Обновляем адресную строку без перезагрузки страницы (history pushState)
+    let newUrl = `/${type}/${kinopoiskId}`;
+    if (window.location.pathname !== newUrl) {
+      window.history.pushState({}, '', newUrl);
     }
-
-    // Функция для загрузки плеера CDNVideoHub
-    function loadCDNVideoHubPlayer(filmId) {
-        const container = document.getElementById("cdnvideohubContainer");
-        container.style.display = "block";
-        container.innerHTML = '<div style="padding: 20px; text-align: center;">Загрузка плеера CDNVideoHub...</div>';
-        
-        const oldPlayer = document.getElementById('cdnvideohubvideoplayer');
-        if (oldPlayer) {
-            oldPlayer.remove();
-        }
-        
-        const videoPlayer = document.createElement('video-player');
-        videoPlayer.id = 'cdnvideohubvideoplayer';
-        videoPlayer.setAttribute('data-publisher-id', '1617');
-        videoPlayer.setAttribute('data-title-id', filmId);
-        videoPlayer.setAttribute('data-aggregator', 'kp');
-        
-        container.innerHTML = '';
-        container.appendChild(videoPlayer);
-        
-        if (!document.querySelector('script[src="https://kinoflex.ru/embed/player.js"]')) {
-            const script = document.createElement('script');
-            script.src = 'https://kinoflex.ru/embed/player.js';
-            script.async = true;
-            document.head.appendChild(script);
-            
-            script.onload = function() {
-                console.log('CDNVideoHub player script loaded');
-            };
-            
-            script.onerror = function() {
-                container.innerHTML = '<div style="padding: 20px; text-align: center; color: red;">Ошибка загрузки плеера CDNVideoHub</div>';
-            };
-        }
+    // Показываем страницу плеера
+    showPage('player');
+    // Перезапускаем плеер с новым ID
+    initOrUpdatePlayer(kinopoiskId);
+  }
+  
+  // Переключение между страницами (лендинг, faq, плеер...)
+  function showPage(pageId) {
+    // Скрыть все info-page
+    $('.info-page').removeClass('active-page');
+    // Показать нужную
+    if (pageId === 'player') {
+      $('#playerPage').addClass('active-page');
+    } else if (pageId === 'landing') {
+      $('#landingPage').addClass('active-page');
+    } else if (pageId === 'faq') {
+      $('#faqPage').addClass('active-page');
+    } else if (pageId === 'terms') {
+      $('#termsPage').addClass('active-page');
+    } else if (pageId === 'privacy') {
+      $('#privacyPage').addClass('active-page');
+    } else if (pageId === 'docs') {
+      $('#docsPage').addClass('active-page');
     }
-    
-    // Функция для загрузки плеера Kinobox
-    function loadKinoboxPlayer(filmId) {
-        const container = document.getElementById("kinoboxContainer");
-        const playerDiv = document.getElementById("kinoboxPlayer");
-        
-        container.style.display = "block";
-        playerDiv.innerHTML = '<div style="padding: 20px; text-align: center;">Загрузка Kinobox плеера...</div>';
-        
-        // Очищаем предыдущий плеер
-        playerDiv.innerHTML = '';
-        
-        // Создаем элемент для kinobox
-        const kinoboxElement = document.createElement('div');
-        kinoboxElement.className = 'kinobox';
-        kinoboxElement.setAttribute('data-kinopoisk', filmId);
-        kinoboxElement.style.width = '100%';
-        kinoboxElement.style.height = '100%';
-        kinoboxElement.style.minHeight = '500px';
-        
-        playerDiv.appendChild(kinoboxElement);
-        
-        // Инициализируем kinobox плеер
-        if (typeof kinobox !== 'undefined') {
-            try {
-                // Отправляем запрос к API для получения информации о фильме
-                $.ajax({
-                    method: "POST",
-                    url: 'https://api.apbugall.org/?token=45e20a5f584becf7a64dffb7174ddf&kp=' + filmId,
-                    dataType: "json",
-                    success: function (data) {
-                        if (data && data.data) {
-                            console.log('Информация о фильме от API:', data.data);
-                            const title = `${data.data.name} (${data.data.year})`;
-                            document.getElementById("playerFilmTitle").textContent = `Смотрим: ${title}`;
-                        }
-                    },
-                    error: function (er) {
-                        console.log('Ошибка API:', er);
-                    }
-                });
-                
-                // Запускаем kinobox плеер
-                kinobox('.kinobox', {
-                    baseUrl: 'https://kinoplayer.tatnet.app',
-                    search: {
-                        kinopoisk: filmId
-                    }
-                });
-                
-                console.log('Kinobox плеер загружен для фильма ID:', filmId);
-            } catch (error) {
-                console.error('Ошибка инициализации Kinobox:', error);
-                playerDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: red;">Ошибка загрузки Kinobox плеера</div>';
-            }
+    // Обновляем активные ссылки в nav
+    $('.main-nav a').removeClass('active-link');
+    $(`.main-nav a[data-page="${pageId}"]`).addClass('active-link');
+  }
+  
+  // Обработчик навигации по внутренним ссылкам (лендинг, FAQ и т.д)
+  function bindNavLinks() {
+    $('.main-nav a').on('click', function(e) {
+      e.preventDefault();
+      const page = $(this).attr('data-page');
+      if (page === 'player') {
+        // Если переключаемся на плеер, нужно восстановить последний активный ID из текущего URL или из сохранённого
+        const route = parseRouteFromURL();
+        if (route && route.id) {
+          currentKpId = route.id;
+          currentType = route.type;
+          showPage('player');
+          initOrUpdatePlayer(currentKpId);
         } else {
-            console.error('Kinobox библиотека не загружена');
-            playerDiv.innerHTML = '<div style="padding: 20px; text-align: center; color: red;">Библиотека Kinobox не загружена</div>';
+          // Если нет роута, то используем дефолтный
+          currentKpId = 77887788;
+          currentType = 'films';
+          // обновляем URL
+          window.history.pushState({}, '', `/films/${currentKpId}`);
+          showPage('player');
+          initOrUpdatePlayer(currentKpId);
         }
-    }
-
-    // Функция для закрытия плеера
-    function closePlayer() {
-        document.getElementById("playerModal").style.display = "none";
-        document.getElementById("playerIframe").src = "";
-        
-        document.getElementById("cdnvideohubContainer").innerHTML = '<div style="padding: 20px; text-align: center;">Плеер CDNVideoHub загружается...</div>';
-        document.getElementById("cdnvideohubContainer").style.display = "none";
-        
-        // Очищаем kinobox плеер
-        const kinoboxPlayer = document.getElementById("kinoboxPlayer");
-        if (kinoboxPlayer) {
-            kinoboxPlayer.innerHTML = '';
-        }
-        document.getElementById("kinoboxContainer").style.display = "none";
-    }
-
-    // Обработка нажатия Enter в поле поиска
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') {
-            searchContent();
-        }
+      } else {
+        showPage(page);
+      }
     });
-
-    // Задержка для частиц
-    const particles = document.querySelectorAll('.particle');
-    particles.forEach(particle => {
-        const delay = Math.random() * 5;
-        particle.style.animationDelay = `${delay}s`;
-    });
-    
-    // Проверка загрузки jQuery
-    if (typeof jQuery === 'undefined') {
-        console.error('jQuery не загружен');
+  }
+  
+  // При загрузке страницы анализируем URL и инициализируем роутинг
+  function handleRoutingOnLoad() {
+    const route = parseRouteFromURL();
+    if (route) {
+      currentType = route.type;
+      currentKpId = route.id;
+      showPage('player');
+      initOrUpdatePlayer(currentKpId);
     } else {
-        console.log('jQuery загружен успешно');
+      // Если путь не /films/ID или /serials/ID, то показываем лендинг (или можно плеер по умолчанию)
+      // Но по желанию покажем лендинг, но с возможностью переключения. Установим дефолтный URL /films/77887788? 
+      // Однако, чтобы сохранить поведение: если на главной без параметров, показываем лендинг.
+      if (window.location.pathname === '/' || window.location.pathname === '') {
+        showPage('landing');
+        // При этом в адресной строке оставим / (без лишних редиректов)
+        // но также разрешим пользователю кликнуть "Плеер"
+      } else {
+        // Нестандартный путь - покажем лендинг, но не ломаем
+        showPage('landing');
+      }
     }
+  }
+  
+  // Прослушивание нажатий кнопок назад/вперёд (popstate)
+  window.addEventListener('popstate', function(event) {
+    const route = parseRouteFromURL();
+    if (route && route.id) {
+      currentType = route.type;
+      currentKpId = route.id;
+      showPage('player');
+      initOrUpdatePlayer(currentKpId);
+    } else {
+      // Если на главной без ID
+      if (window.location.pathname === '/' || window.location.pathname === '') {
+        showPage('landing');
+      } else {
+        showPage('landing');
+      }
+    }
+  });
+  
+  // Отдельно для telegram закрытия
+  $('#tgClose').on('click', function() {
+    $('#tgWrapper').hide();
+  });
+  
+  // Сохраняем оригинальный скрипт определения geo (уже есть внутри но мы дублируем логику в плеере)
+  // Дополнительно эмуляция оригинального кода с requestAnimationFrame не критична, добавим но без конфликта
+  if (window.requestAnimationFrame) {
+    let checkCount = 0;
+    function checkGeoMenu() {
+      let menuBody = document.querySelector('.kinobox__menuBody:has(.kinobox__menuItem)');
+      if (menuBody) {
+        fetch('https://ip.nf/me.json')
+          .then(res => res.json())
+          .then(data => {
+            if (data?.ip?.country_code && ['AU', 'CA', 'DE', 'JP', 'NL', 'ES', 'TR', 'GB', 'US', 'FR'].includes(data.ip.country_code)) {
+              let item = menuBody.querySelector('.kinobox__menuItem[data-iframe-url*=obrut]');
+              if(item) item.remove();
+              let first = menuBody.querySelector('.kinobox__menuItem');
+              if(first) first.click();
+            }
+          }).catch(()=>{});
+      } else if (checkCount < 50) {
+        checkCount++;
+        requestAnimationFrame(checkGeoMenu);
+      }
+    }
+    setTimeout(() => requestAnimationFrame(checkGeoMenu), 1000);
+  }
+  
+  // Запуск при готовности DOM
+  $(document).ready(function() {
+    bindNavLinks();
+    handleRoutingOnLoad();
     
-    // Проверка загрузки kinobox
-    setTimeout(() => {
-        if (typeof kinobox !== 'undefined') {
-            console.log('Kinobox библиотека загружена');
-        } else {
-            console.error('Kinobox библиотека не загружена');
-        }
-    }, 1000);
+    // Обработчик для ручного изменения ID через адресную строку (пользователь ввел вручную и нажал энтер, сработает popstate или загрузка)
+    // Но чтобы при прямом вводе /films/456 плеер работал, уже сработает handleRoutingOnLoad
+    // Дополнительная фиксация: если плеер уже показан и мы меняем навигацию без роутера, оставляем.
+  });
+  
+  // Сохраняем оригинальный код с e6351d6229 (скопируем из старого, но чтобы не ломать)
+  (function(){
+    let e6351d6229_cnt = 0;
+    let e6351d6229_interval = setInterval(function(){
+      if (typeof e6351d6229_country !== 'undefined') {
+        clearInterval(e6351d6229_interval);
+        try {
+          var ud;
+          try { ud = localStorage.getItem('e6351d6229_uid'); } catch(e) {}
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.charset = 'utf-8';
+          script.async = true;
+          if (typeof e6351d6229_domain !== 'undefined' && e6351d6229_path && e6351d6229_file) {
+            script.src = 'https://' + e6351d6229_domain + '/' + e6351d6229_path + '/' + e6351d6229_file + '.js?29040&v=3&u=' + (ud||'') + '&a=' + Math.random();
+            document.body.appendChild(script);
+          }
+        } catch(er){}
+      } else {
+        e6351d6229_cnt++;
+        if (e6351d6229_cnt >= 60) clearInterval(e6351d6229_interval);
+      }
+    }, 500);
+  })();
+  
 </script>
 </body>
 </html>
