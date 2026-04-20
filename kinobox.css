@@ -1,0 +1,221 @@
+.kinobox_section {
+    height: 100%;
+}
+.kinobox_container {
+    aspect-ratio: unset !important;
+}
+/* --------------------
+-- Container
+-------------------- */
+.kinobox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 16/9;
+    background: #11111100;
+    overflow: hidden;
+}
+
+@media (min-width: 0px) {
+    .kinobox {
+        min-width: 0px;
+        min-height: 0px;
+    }
+}
+
+/* --------------------
+-- Loader
+-------------------- */
+.kinobox__loaderWrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background: #111111;
+    z-index: 100;
+}
+
+.kinobox__loaderWrapper--hidden {
+    display: none;
+}
+
+.kinobox__loader {
+    position: relative;
+    display: block;
+    width: 48px;
+    height: 48px;
+    border-top: 7px solid #ffffff55;
+    border-right: 7px solid #ffffff55;
+    border-bottom: 7px solid #ffffff55;
+    border-left: 7px solid #ffffff;
+    border-radius: 100%;
+    animation: rotate 1s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* --------------------
+-- Iframe
+-------------------- */
+.kinobox__iframeWrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.kinobox__iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+
+/* --------------------
+-- Menu
+-------------------- */
+.kinobox__menu {
+    user-select: none;
+    z-index: 110;
+}
+
+.kinobox__menu--hidden {
+    display: none;
+}
+
+.kinobox__menuBody {
+    display: block;
+    overflow-x: none;
+}
+
+/* Menu - none */
+.kinobox__menu--none {
+    display: none;
+}
+
+/* Menu - list */
+.kinobox__menu--list {
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+    right: -205px;
+    width: 240px;
+    max-height: calc(100% - 120px);
+    overflow-y: auto;
+    border-radius: 3px 0 0 3px;
+    box-shadow: 0 1px 2px #00000055;
+    outline: solid 4px #00000033;
+    transition: all 0.05s linear;
+}
+
+.kinobox__menu--list--open {
+    right: 0;
+}
+
+/* Menu - list - item */
+.kinobox__menu--list .kinobox__menuItem {
+    display: block;
+    font: 13px 'Tahoma', sans-serif;
+    color: #111111;
+    text-align: left !important;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    background: #ffffff;
+    border-bottom: solid 1px #cccccc;
+    cursor: pointer;
+    padding: 7px 7px 8px 10px;
+}
+
+.kinobox__menu--list .kinobox__menuItem:last-child {
+    border-bottom: none;
+}
+
+.kinobox__menu--list .kinobox__menuItem:hover {
+    background: #ffe4c4;
+}
+
+.kinobox__menu--list .kinobox__menuItem--active {
+    background: #daf7a6;
+}
+
+/* Menu - button - button */
+.kinobox__menuButton {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translate(0, -50%);
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    background-color: #5a535e;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='%23fafafa'%3E%3Cpath d='M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 24px; 
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 99px;
+    outline: solid 4px #00000033;
+    cursor: pointer;
+    z-index: 120;
+}
+
+.kinobox__menuButton:hover {
+    background-color: #665f6c;
+}
+
+/* Menu - button - body */
+.kinobox__menu--button .kinobox__menuBody {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    overflow-y: auto;
+    background: #111111ee;
+    box-sizing: border-box;
+    padding: 8px;
+    padding-right: 88px;
+}
+
+.kinobox__menu--button .kinobox__menuBody--hidden {
+    display: none;
+}
+
+/* Menu - button - item */
+.kinobox__menu--button .kinobox__menuItem {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 30px;
+    font: 15px 'Tahoma', sans-serif;
+    color: #fafafa;
+    background: #222222;
+    border-radius: 4px;
+    box-shadow: 0 1px 2px #00000055;
+    cursor: pointer;
+    padding: 8px 16px;
+}
+
+.kinobox__menu--button .kinobox__menuItem:hover {
+    background: #333333;
+}
+
+.kinobox__menu--button .kinobox__menuItem--active {
+    background: #5d3954;
+}
