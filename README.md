@@ -2,7 +2,7 @@
 
 > Фильмы и сериалы Плеер нового поколения в стиле KinoBox, работающая на StreamLIVETV API
 
-![KinoPlayer](https://img.shields.io/badge/ProPoisk-Premium-ff6b35?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjExIi8+PC9zdmc+)
+![KinoPlayer](https://img.shields.io/badge/KinoPlayer-ff6b35?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0id2hpdGUiPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjExIi8+PC9zdmc+)
 ![License](https://img.shields.io/badge/license-MIT-blue?style=for-the-badge)
 ![Version](https://img.shields.io/badge/version-1.0.0-green?style=for-the-badge)
 
